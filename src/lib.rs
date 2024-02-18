@@ -9,6 +9,7 @@ async fn health_check() -> impl Responder {
 }
 
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
+    // creates an actix web http server
     let server = HttpServer::new(|| {
         App::new()
             .route("/health_check", web::get().to(health_check))
