@@ -12,7 +12,7 @@ fn spawn_app() -> String {
     let port =  listener.local_addr().unwrap().port();
 
     // create a actix web server with the tcp listener assigned by the operating system
-    let server = newsletter::run(listener).expect("Failed to bind address");
+    let server = newsletter::startup::run(listener).expect("Failed to bind address");
 
     let _ = tokio::spawn(server);
 
