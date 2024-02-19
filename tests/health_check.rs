@@ -5,11 +5,10 @@ use std::net::TcpListener;
 fn spawn_app() -> String {
     // here we are requesting to operating system a tcp listener with port 0
     // the operating system receives the 0 value and creates a random port
-    let listener = TcpListener::bind("127.0.0.1:0")
-        .expect("Failed to bind random port");
+    let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
 
     // we this instruction we are capturing the port assigned by operating system
-    let port =  listener.local_addr().unwrap().port();
+    let port = listener.local_addr().unwrap().port();
 
     // create a actix web server with the tcp listener assigned by the operating system
     let server = newsletter::startup::run(listener).expect("Failed to bind address");
@@ -71,7 +70,7 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
     let test_cases = vec![
         ("name=le%20guin", "missing the email"),
         ("email=ursula_le_guin%40gmail.com", "missing the name"),
-        ("", "missing both name and email")
+        ("", "missing both name and email"),
     ];
 
     // send a request for each test_cases values
@@ -93,5 +92,4 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
             error_message
         );
     }
-
 }
