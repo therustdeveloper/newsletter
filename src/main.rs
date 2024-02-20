@@ -2,11 +2,15 @@
 
 use newsletter::configuration::get_configuration;
 use newsletter::startup::run;
+use newsletter::telemetry::{get_subscriber, init_subscriber};
 use sqlx::PgPool;
 use std::net::TcpListener;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
+    let subscriber = get_subscriber("newsletter".into(), "info".into());
+    init_subscriber(subscriber);
+
     // Early exit if we cannot find the configuration.yaml file
     let configuration = get_configuration().expect("Failed to read configuration.");
 
