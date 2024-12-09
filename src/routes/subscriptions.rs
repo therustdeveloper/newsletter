@@ -1,3 +1,4 @@
+//! src/subscriptions.rs
 use actix_web::{web, HttpResponse};
 
 #[derive(serde::Deserialize)]
